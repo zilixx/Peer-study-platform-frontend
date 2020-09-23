@@ -1,43 +1,41 @@
-# Dummy Vue project
-For reference and experiment only, don't be too serious about it.
-## Before setup
+# Peer Study Helping Frontend
+This is the working repository for group project Peer Study Helping platform.
+
+**This is the frontend project repository, if you are looking for the backend project, checkout another repository inside this organization.**
+
+## Setup
 ### Install NodeJS
 **Make sure you install NodeJS first!**
 
 https://nodejs.org/zh-cn/download/
 
 ### Install Vue CLI
-Follow the official guide:
+- Follow the official guide:
 
-https://cli.vuejs.org/zh/guide/installation.html
+    https://cli.vuejs.org/zh/guide/installation.html
 
-Or use the command below in your teminal.
-```shell
-npm install -g @vue/cli
-```
+- Or use the command below in your terminal.
+    ```shell
+    npm install -g @vue/cli
+    ```
 ### Install dependencies
 In your project directory
 ```shell
 npm install
 ```
 
-## Project setup
 ### Compiles and hot-reloads for development
 ```shell
 npm run serve
 ```
 
-### How to use axios in this project
-Example: fire a GET request with parameter and print the response in console.
-```js
-this.$axios.get("\api\greeting?name=value").then((response) => {console.log(response)});
-```
-
 ## Reference documents
-- Vue: https://cn.vuejs.org/index.html
+- Vue.js: https://cn.vuejs.org/index.html
+- Vuex: https://vuex.vuejs.org/zh/guide/
+- Element UI: https://element.eleme.io/#/zh-CN/component/layout
 - Axios: https://github.com/axios/axios
 
-## VSCode plugin
+## VSCode extensions
 - Vetur
 - ESLint
 - npm
