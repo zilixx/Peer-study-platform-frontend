@@ -29,6 +29,11 @@ npm install
 npm run serve
 ```
 
+### Testing environment
+For branch `chli4002`, the response data for testing can be found at `./src/assets/sample_ViewBooking.json`.
+
+API calls will be updated for Spring Boot backend soon.
+
 ## Reference documents
 - Vue.js: https://cn.vuejs.org/index.html
 - Vuex: https://vuex.vuejs.org/zh/guide/
