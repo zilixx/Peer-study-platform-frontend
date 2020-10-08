@@ -29,6 +29,15 @@ npm install
 npm run serve
 ```
 
+### Testing environment
+The testing backend can be found in https://github.sydney.edu.au/ELEC5619-2020/DummyFlask.
+
+Follow the README guide to run the mini backend.
+
+For branch `chli4002`, the response data for testing can be found at `./src/assets/sample_ViewBooking.json`.
+
+API calls will be updated for Spring Boot backend soon.
+
 ## Reference documents
 - Vue.js: https://cn.vuejs.org/index.html
 - Vuex: https://vuex.vuejs.org/zh/guide/
