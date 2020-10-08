@@ -5,8 +5,6 @@
                 default-active="/"
                 class="el-menu-vertical-demo"
                 :router="true"
-                @open="handleOpen"
-                @close="handleClose"
             >
                 <el-menu-item index="/">
                     <i class="el-icon-s-home"></i>

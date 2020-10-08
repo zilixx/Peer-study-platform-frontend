@@ -4,7 +4,7 @@
             <div id="welcome"><i class="el-icon-user" id="usericon"></i>{{user.name}}</div>
         </el-col>
         <el-col :span="5">
-            <img src="../../assets/logo.png" id="logo"/>
+            <img src="../../assets/usyd-logo.png" id="logo"/>
         </el-col>
         <el-col :span="5">
             <el-button @click="userLogout(user.name)">Logout</el-button>
@@ -17,6 +17,7 @@ export default {
     name: "Header",
     props: ["user"],
     methods: {
+        // TODO: untested API call
         userLogout: function (userName) {
             this.$axios
                 .get("/api/logout", {

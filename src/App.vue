@@ -49,9 +49,9 @@ body,
 #app,
 .el-container {
     /*设置内部填充为0，几个布局元素之间没有间距*/
-    padding: 0px;
+    padding: 0;
     /*外部间距也是如此设置*/
-    margin: 0px;
+    margin: 0;
     /*统一设置高度为100%*/
     height: 100%;
 }
@@ -72,10 +72,9 @@ body,
 }
 
 .el-main {
-    background-color: #e9eef3;
+    background-color: #f5f5f5;
     color: #333;
     text-align: center;
-    line-height: 160px;
 }
 
 body {
@@ -89,6 +88,11 @@ body > .el-container {
 
 .main {
     height: 100%;
+}
+
+/* Remove the padding from Element UI */
+main.el-main{
+    padding: 0 0;
 }
 </style>
 
