@@ -1,7 +1,7 @@
 <!-- Search bar component -->
-<template>
+<template xmlns:size="http://www.w3.org/1999/xhtml">
     <div>
-        <input :value="currentValue" @input="inputload">
+        <input :value="currentValue" @input="inputload" placeholder="Please enter class number, eg: COMP5619" class="input" size="165.5">
     </div>
 </template>
 <script>
@@ -36,3 +36,9 @@
         }
     }
 </script>
+
+<style>
+    .input{
+        padding: 6px 10px;
+    }
+</style>
