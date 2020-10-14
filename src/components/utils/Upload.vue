@@ -4,7 +4,7 @@
     <el-upload
         class="upload"
         ref="upload"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action="http://localhost:8888/upload"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
