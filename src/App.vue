@@ -74,7 +74,6 @@ body,
 .el-main {
     background-color: #f5f5f5;
     color: #333;
-    text-align: center;
 }
 
 body {
@@ -83,7 +82,7 @@ body {
 
 body > .el-container {
     /* margin-bottom: 40px; */
-    height: 100%;
+    /* height: 100%; */
 }
 
 .main {

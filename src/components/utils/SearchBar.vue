@@ -1,7 +1,7 @@
 <!-- Search bar component -->
 <template xmlns:size="http://www.w3.org/1999/xhtml">
     <div>
-        <input :value="currentValue" @input="inputload" placeholder="Please enter class number, eg: COMP5619" class="input" size="165.5">
+        <input :value="currentValue" @input="inputload" placeholder="Please enter class number, eg: COMP5619" class="input" size="66">
     </div>
 </template>
 <script>

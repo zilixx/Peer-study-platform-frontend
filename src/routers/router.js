@@ -6,16 +6,16 @@ import MyCourse from '../components/content/MyCourse.vue'
 import AllCourse from '../components/content/AllCourse.vue'
 import ViewBooking from '../components/content/ViewBooking.vue'
 import Resigter from '../components/content/Resigter.vue'
+import CourseDetail from '../components/content/CourseDetail.vue'
 
 Vue.use(VueRouter)
 
 export default new VueRouter({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/',
             component: Home,
-            props: {username: "user 1"}
+            props: { username: "user 1" }
         },
         {
             path: '/allcourse',
@@ -23,15 +23,22 @@ export default new VueRouter({
         },
         {
             path: '/mycourse',
-            component: MyCourse
+            component: MyCourse,
         },
         {
             path: '/viewbooking',
-            component: ViewBooking    
+            component: ViewBooking
         },
         {
             path: '/register',
             component: Resigter
+        },
+        {
+            path: '/course/:id',
+            name: 'CourseDetail',
+            component: CourseDetail,
+            props: true
         }
+
     ]
 });
