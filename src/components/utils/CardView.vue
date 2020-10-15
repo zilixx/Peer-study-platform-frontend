@@ -47,20 +47,34 @@ export default {
 
 <style scoped>
 .el-card {
-  padding: 5px;
+  padding: 3px;
   border-radius: 5px;
-  cursor: pointer;
+  /* cursor: pointer; */
   display: flex;
   justify-content: center;
 }
 #jumbo {
-  width: 290px;
+  width: 270px;
   height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(45deg, #3f87a6, #f69d3c);
+  /* background:linear-gradient(45deg, #020031 0%, #6D3353 100%); */
   color: white;
+  position: relative;
+}
+#jumbo:after {
+   content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(../../assets/background1.jpeg);
+    background-size: cover;
+    opacity: 0.1;
 }
 #caption {
   margin: 10px 8px 3px 8px;

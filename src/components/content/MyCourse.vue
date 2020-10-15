@@ -1,10 +1,10 @@
 <template>
   <div id="container">
-    <el-tabs type="border-card" stretch="true" v-model="activeName">
+    <el-tabs type="card" v-model="activeName">
       <el-tab-pane label="As a student" name="student">
         <div v-if="courses.length">
           <el-col
-            :span="7"
+            :span="6"
             :offset="1"
             v-for="course in courses"
             :key="course.id"
@@ -22,7 +22,16 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="As a tutor" name="tutor">
-        <div v-if="tutorCourses.length"></div>
+        <div v-if="tutorCourses.length">
+          <el-col
+            :span="6"
+            :offset="1"
+            v-for="course in tutorCourses"
+            :key="course.id"
+          >
+            <CardView :course="course" />
+          </el-col>
+        </div>
         <div v-else>
           <h2>You haven't registered as a tutor for any courses now.</h2>
           <el-link type="primary" @click="() => this.$router.push(`/register`)"
@@ -57,6 +66,10 @@ export default {
         id: "COMP5173",
         name: "Web application development",
       });
+      this.tutorCourses = Array(50).fill({
+        id: "COMP1112",
+        name: "Project process and control"
+      })
     },
     seeDetail(courseId) {
       this.$router.push(`/course/${courseId}`);
