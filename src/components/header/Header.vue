@@ -42,9 +42,18 @@ img {
     height: 55px;
 }
 #welcome {
-    font-size: 21px;
+    font-size: 1.2em;
+}
+#welcome i{
+    font-size: 1.3em;
 }
 #usericon{
     padding-right: 2%;
+}
+.el-row{
+    height: 100%;
+}
+.el-col{
+    height: 100%;
 }
 </style>
