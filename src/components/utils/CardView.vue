@@ -30,11 +30,11 @@ export default {
     seeDetail(courseId) {
       if (this.$router.currentRoute.path === "/allcourse") {
         this.$router.push(`/course/${courseId}`);
-      } else {
+      } else if (this.$router.currentRoute.path === "/mycourse") {
         if (this.identity === "tutor") {
-          this.$router.push(`/tutorcourse/${courseId}`)
+          this.$router.push(`/course/${courseId}/students`)
         } else if (this.identity === "student") {
-          this.$router.push(`/studentcourse/${courseId}`);
+          this.$router.push(`/course/${courseId}/tutors`);
         }
       }
     },
@@ -72,7 +72,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: url(../../assets/background1.jpeg);
+  background: url("../../assets/background1.jpeg");
   background-size: cover;
   opacity: 0.1;
 }

@@ -1,10 +1,6 @@
 <template>
   <div id="container">
-    <el-page-header
-      title="Go back"
-      @back="goBack"
-      content="Available tutors"
-    ></el-page-header>
+    <BackHeader :content="headerContent" :from="from" />
     <el-table
       :data="tutorList"
       stripe
@@ -46,6 +42,8 @@
 </template>
 
 <script>
+import BackHeader from '../utils/BackHeader'
+
 export default {
   name: "CourseDetail",
   data() {
@@ -54,12 +52,14 @@ export default {
       theme: "primary",
       disable: false,
       loading: true,
+      headerContent: "Available tutors",
+      from: "/allcourse"
     };
   },
+  components: {
+    BackHeader
+  },
   methods: {
-    goBack() {
-      this.$router.push("/allcourse");
-    },
     getData() {
         // asynchronously fetch data
       setTimeout(() => {
@@ -90,9 +90,6 @@ export default {
 
 <style scoped>
 #container {
-  padding: 20px;
-}
-.el-page-header {
   padding: 20px;
 }
 </style>

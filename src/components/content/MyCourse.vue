@@ -67,10 +67,10 @@ export default {
         id: "COMP5173",
         name: "Object Oriented Application Framework",
       });
-      // this.tutorCourses = Array(50).fill({
-      //   id: "COMP1112",
-      //   name: "Project process and control"
-      // })
+      this.tutorCourses = Array(50).fill({
+        id: "COMP1112",
+        name: "Project process and control"
+      })
     },
   },
 };
