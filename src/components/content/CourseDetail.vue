@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push("/mycourse");
+      this.$router.push("/allcourse");
     },
     getData() {
         // asynchronously fetch data

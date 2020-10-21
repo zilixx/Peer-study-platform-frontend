@@ -4,12 +4,12 @@
       <el-tab-pane label="As a student" name="student">
         <div v-if="courses.length">
           <el-col
-            :span="6"
+            :span="7"
             :offset="1"
             v-for="course in courses"
             :key="course.id"
           >
-            <CardView :course="course" />
+            <CardView :course="course" :identity="activeName" />
           </el-col>
         </div>
         <div v-else>
@@ -24,12 +24,12 @@
       <el-tab-pane label="As a tutor" name="tutor">
         <div v-if="tutorCourses.length">
           <el-col
-            :span="6"
+            :span="7"
             :offset="1"
             v-for="course in tutorCourses"
             :key="course.id"
           >
-            <CardView :course="course" />
+            <CardView :course="course" :identity="activeName" />
           </el-col>
         </div>
         <div v-else>
@@ -45,6 +45,7 @@
 
 <script>
 import CardView from "../utils/CardView";
+
 export default {
   name: "MyCourse",
   data() {
@@ -62,17 +63,14 @@ export default {
   },
   methods: {
     getData() {
-      this.courses = Array(100).fill({
+      this.courses = Array(5).fill({
         id: "COMP5173",
-        name: "Web application development",
+        name: "Object Oriented Application Framework",
       });
-      this.tutorCourses = Array(50).fill({
-        id: "COMP1112",
-        name: "Project process and control"
-      })
-    },
-    seeDetail(courseId) {
-      this.$router.push(`/course/${courseId}`);
+      // this.tutorCourses = Array(50).fill({
+      //   id: "COMP1112",
+      //   name: "Project process and control"
+      // })
     },
   },
 };

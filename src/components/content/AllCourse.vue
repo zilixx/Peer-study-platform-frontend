@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>
+    <el-row id="search-row">
       <el-col :span="11">
         <Search_input v-model="inputvalue"></Search_input>
       </el-col>
@@ -8,30 +8,57 @@
         <button class="button button1" @click="submit">Search</button>
       </el-col>
     </el-row>
+    <div>
+      <el-col id="card-col" :span="6" :offset="1" v-for="course in courses" :key="course.id">
+        <CardView :course="course"/>
+      </el-col>
+    </div>
   </div>
 </template>
 
 <script>
 import SearchBar from "../utils/SearchBar";
+import CardView from "../utils/CardView";
+
 export default {
   name: "AllCourse",
   data() {
     return {
       inputvalue: "",
+      activeName: "",
+      courses: [],
     };
   },
   components: {
     Search_input: SearchBar,
+    CardView,
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
     submit() {
       console.log(this.inputvalue);
+    },
+    getData() {
+      this.courses = Array(20).fill({
+        id: "COMP1234",
+        name: "Object Oriented Application Framework",
+      });
     },
   },
 };
 </script>
 
 <style>
+.el-row#search-row {
+  margin-top: 10px;
+  margin-left: 45px;
+  margin-bottom: 10px;
+}
+#card-col {
+  margin-bottom: 30px;
+}
 .button {
   display: block;
   width: 100px;

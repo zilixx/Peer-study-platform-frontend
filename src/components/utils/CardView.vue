@@ -21,25 +21,25 @@
 <script>
 export default {
   name: "CardView",
-  data() {
-    return {
-      activeName: "student",
-      courses: [],
-    };
-  },
-  props: ["course"],
+  props: ["course", "identity"],
   mounted() {
     this.getData();
+    console.log(this.$router.currentRoute.path);
   },
   methods: {
-    getData() {
-      this.courses = Array(200).fill({
-        id: "COMP5173",
-        name: "Web application development",
-      });
-    },
     seeDetail(courseId) {
-      this.$router.push(`/course/${courseId}`);
+      if (this.$router.currentRoute.path === "/allcourse") {
+        this.$router.push(`/course/${courseId}`);
+      } else {
+        if (this.identity === "tutor") {
+          this.$router.push(`/tutorcourse/${courseId}`)
+        } else if (this.identity === "student") {
+          this.$router.push(`/studentcourse/${courseId}`);
+        }
+      }
+    },
+    getData() {
+      console.log(this.identity);
     },
   },
 };
@@ -47,14 +47,14 @@ export default {
 
 <style scoped>
 .el-card {
+  width: 290px;
   padding: 3px;
   border-radius: 5px;
-  /* cursor: pointer; */
   display: flex;
   justify-content: center;
 }
 #jumbo {
-  width: 270px;
+  width: 280px;
   height: 150px;
   display: flex;
   align-items: center;
@@ -65,24 +65,27 @@ export default {
   position: relative;
 }
 #jumbo:after {
-   content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: url(../../assets/background1.jpeg);
-    background-size: cover;
-    opacity: 0.1;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(../../assets/background1.jpeg);
+  background-size: cover;
+  opacity: 0.1;
+}
+h3 {
+  text-align: center;
 }
 #caption {
-  margin: 10px 8px 3px 8px;
+  margin: 10px 6px 3px 6px;
   font-size: 13px;
   color: #3f87a6;
 }
 #caption:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 #detail {
   text-align: right;
