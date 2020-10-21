@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #search-row {
   margin-top: 10px;
   margin-left: 45px;
