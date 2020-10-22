@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="search-row">
-        <SearchBar v-model="inputvalue" />
+      <SearchBar @input="handleSearch" />
     </div>
     <div v-if="courses.length">
       <el-col
@@ -14,8 +14,8 @@
         <CardView :course="course" />
       </el-col>
     </div>
-    <div style="margin-left: 40px" v-else>
-      <h1>No Courses available!</h1>
+    <div style="margin-left: 55px" v-else>
+      <h1>No courses found!</h1>
     </div>
   </div>
 </template>
@@ -28,7 +28,6 @@ export default {
   name: "AllCourse",
   data() {
     return {
-      inputvalue: "",
       activeName: "",
       courses: [],
     };
@@ -41,14 +40,23 @@ export default {
     this.getData();
   },
   methods: {
-    submit() {
-      console.log(this.inputvalue);
+    handleSearch(keyword) {
+      if (keyword == "") this.getData();
+      else
+        this.courses = this.courses.filter(
+          (course) =>
+            course.id.includes(keyword) || course.name.includes(keyword)
+        );
     },
     getData() {
-      this.courses = Array(20).fill({
+      this.courses = Array(3).fill({
         id: "COMP1234",
         name: "Object Oriented Application Framework",
       });
+      this.courses.push(
+        { id: "ELEC1112", name: "Advanced Network technology" },
+        { id: "MATH1234", name: "Management System" }
+      );
     },
   },
 };

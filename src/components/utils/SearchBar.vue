@@ -2,12 +2,11 @@
 <template xmlns:size="http://www.w3.org/1999/xhtml">
   <div>
     <input
-      :value="currentValue"
-      @input="inputload"
+      v-model.lazy="currentValue"
       placeholder="Please enter class number, eg: COMP5619"
       class="input"
     />
-    <input type="button" class="button button1" value="Submit">
+    <input type="button" class="button button1" value="Search" @click="inputLoad" />
   </div>
 </template>
 <script>
@@ -15,29 +14,12 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      currentValue: this.value,
+      currentValue: "",
     };
   },
-  props: {
-    value: {
-      type: [String, Number],
-      default: "",
-    },
-  },
-  watch: {
-    value(val) {
-      this.setCurrentValue(val);
-    },
-  },
   methods: {
-    setCurrentValue(value) {
-      console.log(value);
-      if (value === this.currentValue) return;
-      this.currentValue = value;
-    },
-    inputload(event) {
-      let value = event.target.value;
-      this.$emit("input", value);
+    inputLoad() {
+      this.$emit("input", this.currentValue);
     },
   },
 };
@@ -47,12 +29,12 @@ export default {
 .input {
   display: inline-block;
   padding: 6px 10px;
-  width: 755px;
-  margin-right: 20px;
+  width: 790px;
+  margin-left: 13px;
 }
 .button {
   width: 100px;
-  height: 31px;
+  height: 32px;
   background-color: #4caf50;
   color: white;
   padding: 8px 20px;

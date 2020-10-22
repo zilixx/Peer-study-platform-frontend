@@ -22,10 +22,6 @@
 export default {
   name: "CardView",
   props: ["course", "identity"],
-  mounted() {
-    this.getData();
-    console.log(this.$router.currentRoute.path);
-  },
   methods: {
     seeDetail(courseId) {
       if (this.$router.currentRoute.path === "/allcourse") {
@@ -37,9 +33,6 @@ export default {
           this.$router.push(`/course/${courseId}/tutors`);
         }
       }
-    },
-    getData() {
-      console.log(this.identity);
     },
   },
 };

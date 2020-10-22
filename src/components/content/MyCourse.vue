@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <el-tabs type="card" v-model="activeName">
+    <el-tabs type="border-card" v-model="activeName">
       <el-tab-pane label="As a student" name="student">
         <div v-if="courses.length">
           <el-col
