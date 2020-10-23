@@ -1,12 +1,17 @@
 <!-- Search bar component -->
-<template xmlns:size="http://www.w3.org/1999/xhtml">
+<template>
   <div>
     <input
       v-model.lazy="currentValue"
-      placeholder="Please enter class number, eg: COMP5619"
+      placeholder="Please search a course number or a course name, eg: COMP5619 or Object Oriented Application Framework"
       class="input"
     />
-    <input type="button" class="button button1" value="Search" @click="inputLoad" />
+    <input
+      type="button"
+      class="button button1"
+      value="Search"
+      @click="inputLoad"
+    />
   </div>
 </template>
 <script>
@@ -29,8 +34,8 @@ export default {
 .input {
   display: inline-block;
   padding: 6px 10px;
-  width: 790px;
-  margin-left: 13px;
+  width: 795px;
+  margin-left: 5px;
 }
 .button {
   width: 100px;

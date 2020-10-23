@@ -30,6 +30,7 @@ export default {
     return {
       activeName: "",
       courses: [],
+      originalCourses: [],
     };
   },
   components: {
@@ -41,11 +42,12 @@ export default {
   },
   methods: {
     handleSearch(keyword) {
-      if (keyword == "") this.getData();
+      if (keyword == "") this.courses = this.originalCourses;
       else
-        this.courses = this.courses.filter(
+        this.courses = this.originalCourses.filter(
           (course) =>
-            course.id.includes(keyword) || course.name.includes(keyword)
+            course.id.toUpperCase().includes(keyword.toUpperCase()) ||
+            course.name.toUpperCase().includes(keyword.toUpperCase())
         );
     },
     getData() {
@@ -57,6 +59,7 @@ export default {
         { id: "ELEC1112", name: "Advanced Network technology" },
         { id: "MATH1234", name: "Management System" }
       );
+      this.originalCourses = this.courses.slice();
     },
   },
 };
