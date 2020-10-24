@@ -16,10 +16,7 @@ export default {
     goBack() {
       this.$router.push(this.from);
     },
-  },
-  mounted() {
-    console.log(this.from);
-  },
+  }
 };
 </script>
 

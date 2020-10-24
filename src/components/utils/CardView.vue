@@ -4,13 +4,13 @@
       <h3>{{ course.name }}</h3>
     </div>
     <div id="caption">
-      <p id="course-id">{{ course.id }}</p>
-      <p id="course-name">{{ course.name }}</p>
+      <p id="course-code">{{ course.courseCode }}</p>
+      <p id="course-description">{{ course.description }}</p>
       <p id="detail">
         <el-link
           type="primary"
           icon="el-icon-search"
-          @click="seeDetail(course.id)"
+          @click="seeDetail(course.courseCode)"
           >See detail
         </el-link>
       </p>
@@ -23,14 +23,14 @@ export default {
   name: "CardView",
   props: ["course", "identity"],
   methods: {
-    seeDetail(courseId) {
+    seeDetail(courseCode) {
       if (this.$router.currentRoute.path === "/allcourse") {
-        this.$router.push(`/course/${courseId}`);
+        this.$router.push(`/course/${courseCode}`);
       } else if (this.$router.currentRoute.path === "/mycourse") {
         if (this.identity === "tutor") {
-          this.$router.push(`/course/${courseId}/students`)
+          this.$router.push(`/course/${courseCode}/students`);
         } else if (this.identity === "student") {
-          this.$router.push(`/course/${courseId}/tutors`);
+          this.$router.push(`/course/${courseCode}/tutors`);
         }
       }
     },
@@ -71,6 +71,7 @@ export default {
 }
 h3 {
   text-align: center;
+  z-index: 1;
 }
 #caption {
   margin: 10px 6px 3px 6px;
@@ -83,8 +84,8 @@ h3 {
 #detail {
   text-align: right;
 }
-p#course-id,
-p#course-name,
+p#course-code,
+p#course-description,
 p#detail {
   margin: 2px;
   word-wrap: break-word;

@@ -7,7 +7,7 @@
             :span="7"
             :offset="1"
             v-for="course in courses"
-            :key="course.id"
+            :key="course.courseId"
           >
             <CardView :course="course" :identity="activeName" />
           </el-col>
@@ -27,7 +27,7 @@
             :span="7"
             :offset="1"
             v-for="course in tutorCourses"
-            :key="course.id"
+            :key="course.courseId"
           >
             <CardView :course="course" :identity="activeName" />
           </el-col>
@@ -62,15 +62,8 @@ export default {
     this.getData();
   },
   methods: {
+    // TODO: fetch data
     getData() {
-      this.courses = Array(5).fill({
-        id: "COMP5173",
-        name: "Object Oriented Application Framework",
-      });
-      this.tutorCourses = Array(50).fill({
-        id: "COMP1112",
-        name: "Project process and control"
-      })
     },
   },
 };

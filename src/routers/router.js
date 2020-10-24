@@ -37,19 +37,19 @@ export default new VueRouter({
             component: Resigter
         },
         {
-            path: '/course/:id',
+            path: '/course/:courseCode',
             name: 'CourseDetail',
             component: CourseDetail,
             props: true
         },
         {
-            path: '/course/:id/tutors',
+            path: '/course/:courseCode/tutors',
             name: 'MyCourseTutorDetail',
             component: MyCourseTutorDetail,
             props: true
         },
         {
-            path: '/course/:id/students',
+            path: '/course/:courseCode/students',
             name: 'MyCourseStudentDetail',
             component: MyCourseStudentDetail,
             props: true

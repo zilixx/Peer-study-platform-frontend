@@ -9,7 +9,7 @@
         :span="6"
         :offset="1"
         v-for="course in courses"
-        :key="course.id"
+        :key="course.courseId"
       >
         <CardView :course="course" />
       </el-col>
@@ -41,25 +41,27 @@ export default {
     this.getData();
   },
   methods: {
+    // search method
     handleSearch(keyword) {
-      if (keyword == "") this.courses = this.originalCourses;
+      if (keyword == "") this.courses = this.originalCourses
       else
         this.courses = this.originalCourses.filter(
           (course) =>
-            course.id.toUpperCase().includes(keyword.toUpperCase()) ||
+            course.courseCode.toUpperCase().includes(keyword.toUpperCase()) ||
             course.name.toUpperCase().includes(keyword.toUpperCase())
         );
     },
     getData() {
-      this.courses = Array(3).fill({
-        id: "COMP1234",
-        name: "Object Oriented Application Framework",
-      });
-      this.courses.push(
-        { id: "ELEC1112", name: "Advanced Network technology" },
-        { id: "MATH1234", name: "Management System" }
-      );
-      this.originalCourses = this.courses.slice();
+      // fetch course data from api
+      this.$axios
+        .get("/api/course/all")
+        .then((res) => {
+          this.courses = res.data;
+          this.originalCourses = this.courses.slice()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
