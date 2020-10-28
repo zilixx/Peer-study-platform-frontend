@@ -1,146 +1,137 @@
 <template>
-  <div id="container">
-    <!-- BackHeader component -->
-    <BackHeader :content="headerContent" :from="from" />
-    <!-- Show tutor list for selected course -->
-    <el-table
-      ref="tutorTable"
-      :data="tutorList"
-      stripe
-      style="width: 100%"
-      empty-text="No tutor available for this course!"
-      v-loading="loading"
-    >
-      <el-table-column prop="sid" label="Student ID" width="250">
-      </el-table-column>
-      <el-table-column prop="first_name" label="Tutor name" width="180">
-      </el-table-column>
-      <el-table-column prop="availableTime" label="Available on" width="200">
-      </el-table-column>
-      <el-table-column align="right">
-        <template slot-scope="scope">
-          <el-button
-            slot="reference"
-            size="mini"
-            type="primary"
-            icon="el-icon-star-on"
-            class="book-button"
-            @click="handleBooking(scope.row, $event)"
-            >Booking</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+    <div id="container">
+        <!-- BackHeader component -->
+        <BackHeader :content="headerContent" :from="from"/>
+        <!-- Show tutor list for selected course -->
+        <el-table
+            ref="tutorTable"
+            :data="tutorList"
+            stripe
+            style="width: 100%"
+            empty-text="No tutor available for this course!"
+            v-loading="loading"
+        >
+            <el-table-column prop="sid" label="Student ID" width="250">
+            </el-table-column>
+            <el-table-column prop="first_name" label="Tutor name" width="180">
+            </el-table-column>
+            <el-table-column prop="availableTime" label="Available on" width="200">
+            </el-table-column>
+            <el-table-column align="right">
+                <template slot-scope="scope">
+                    <el-button
+                        slot="reference"
+                        size="mini"
+                        type="primary"
+                        icon="el-icon-star-on"
+                        class="book-button"
+                        @click="handleBooking(scope.row, $event)"
+                    >Booking
+                    </el-button
+                    >
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
 </template>
 
 <script>
 import BackHeader from "../utils/BackHeader";
 
 export default {
-  name: "CourseDetail",
-  props: ["courseCode"],
-  data() {
-    return {
-      tutorList: [],
-      loading: true,
-      headerContent: "Available tutors",
-      from: "/allcourse",
-    };
-  },
-  components: {
-    BackHeader,
-  },
-  methods: {
-    getData(courseCode) {
-      // setTimeout(() => {
-      //   this.tutorList.push({
-      //     sid: "123456789",
-      //     first_name: "jacob",
-      //     last_name: "Xavior",
-      //     availableTime: "Tuesday 3:00-5:00",
-      //   });
-      //   this.loading = false;
-      // }, 500);
-      // TODO: test api
-      this.$axios
-        .get(`api/course/${courseCode}`)
-        .then((res) => {
-          this.tutorList = res.data;
-        })
-        .then(() => (this.loading = false))
-        .catch((err) => {
-          console.log(err);
-          this.loading = false;
-        });
+    name: "CourseDetail",
+    props: ["courseCode"],
+    data() {
+        return {
+            tutorList: [],
+            loading: true,
+            headerContent: "Available tutors",
+            from: "/allcourse",
+        };
     },
-    handleBooking(row, event) {
-      // TODO: test api
-      if (!event.currentTarget.classList.contains("is-disabled")) {
-        // TODO: post request to certain url
-        this.$axios
-          .post("url", {
-            sid: "",
-            tutorId: row.sid,
-          })
-          .then(() => {
-            (event.currentTarget.children[1].innerHTML = "Booked"),
-              event.currentTarget.classList.add(
-                "el-button--success",
-                "is-disabled"
-              );
-            this.$message({
-              type: "success",
-              message: `You have successfully booked ${row.first_name}'s course. You can cancel this booking in My Profile -> View Booking`,
-            });
-          })
-          .catch((err) => console.log(err));
-      } else
-        this.$message({
-          type: "warning",
-          message: `You have booked this course. You can't book this course again`,
-        });
+    components: {
+        BackHeader,
     },
-  },
-  // watch: {
-  //   tutorList: {
-  //     handler(list) {
-  //       // TODO: fetch data
-  //       let bookedList = [];
-  //       this.$axios
-  //         .get(`/api/course/booked/${this.courseCode}`, {
-  //           params: {
-  //             sid: "",
-  //           },
-  //         })
-  //         .then((res) => {
-  //           bookedList = res.data;
-  //           console.log(bookedList);
-  //         })
-  //         .catch((err) => console.log(err));
+    methods: {
+        getData(courseCode) {
+            this.$axios
+                .get(`http://localhost:8888/course/${courseCode}`)
+                .then((res) => {
+                    this.tutorList = res.data;
+                })
+                .then(() => (this.loading = false))
+                .catch((err) => {
+                    console.log(err);
+                    this.loading = false;
+                });
+        },
 
-  //       const userid = "123456789";
-  //       list.forEach((el, index) => {
-  //         if (el.sid === userid) {
-  //           const buttons = document.getElementsByClassName(
-  //             "el-button--primary"
-  //           );
-  //           console.log(index);
-  //           console.log(buttons.length);
-  //         }
-  //       });
-  //     },
-  //     immediate: true,
-  //   },
-  // },
-  mounted() {
-    this.getData("COMP9001");
-  },
+        getBookedTutor(courseCode) {
+            this.$axios.get(`http://localhost:8888/course/booked/${courseCode}`, {
+                params: {
+                    sid: 1008
+                }
+            }).then((response) => {
+                let bookedList = response.data;
+
+                const buttonList = document.getElementsByClassName("book-button");
+                console.log(buttonList.length)
+                this.tutorList.forEach((el, index) => {
+                    for (let i = 0; i < bookedList.length; i++) {
+                        if (el.sid === bookedList[i].tutorSid) {
+                            buttonList.item(index).classList.add(
+                                "el-button--success",
+                                "is-disabled"
+                            )
+                        }
+                    }
+                })
+            })
+        },
+
+        handleBooking(row, event) {
+            // if (!event.currentTarget.classList.contains("is-disabled")) {
+            this.$axios
+                .get(`http://localhost:8888/booking/add/${this.courseCode}`, {
+                    params: {
+                        studentId: 1008,
+                        tutorId: row.sid
+                    }
+                })
+                .then((res) => {
+                    if (res.data.addStat) {
+                        event.target.children[1].innerHTML = "Booked"
+                        event.target.classList.add(
+                            "el-button--success",
+                            "is-disabled"
+                        )
+
+                        this.$message({
+                            type: "success",
+                            message: `You have successfully booked ${row.first_name}'s course. You can cancel this booking in My Profile -> View Booking`,
+                        });
+                    } else {
+                        this.$message({
+                            type: "error",
+                            message: "Failed request!"
+                        });
+                    }
+
+                })
+                .catch((err) => console.log(err));
+        },
+    },
+    mounted() {
+        this.getBookedTutor(this.courseCode)
+    },
+    beforeMount() {
+        this.getData(this.courseCode);
+    }
 };
 </script>
 
 <style scoped>
 #container {
-  padding: 10px;
+    padding: 10px;
 }
 </style>

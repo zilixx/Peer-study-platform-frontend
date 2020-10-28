@@ -43,7 +43,7 @@ export default {
   methods: {
     // search method
     handleSearch(keyword) {
-      if (keyword == "") this.courses = this.originalCourses
+      if (keyword === "") this.courses = this.originalCourses
       else
         this.courses = this.originalCourses.filter(
           (course) =>
@@ -54,7 +54,7 @@ export default {
     getData() {
       // fetch course data from api
       this.$axios
-        .get("/api/course/all")
+        .get("http://localhost:8888/course/all")
         .then((res) => {
           this.courses = res.data;
           this.originalCourses = this.courses.slice()
