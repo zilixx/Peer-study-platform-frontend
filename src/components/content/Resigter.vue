@@ -5,9 +5,21 @@
                @change="submitCourse()">
       <el-option
         v-for="item in options"
-        :key="item.courseId"
-        :value="item.name"
+        :key="item.name"
+        :value="item.courseId"
+        :label="item.name"
         >
+      </el-option>
+    </el-select>
+
+    <h3>Select Available Time</h3>
+    <el-select v-model="availableDay" placeholder="please choose" id="selection" class="selection"
+               @change="submitDay()">
+      <el-option
+          v-for="item in day"
+          :key="item.value"
+          :value="item.label"
+      >
       </el-option>
     </el-select>
 
@@ -15,7 +27,7 @@
     <el-upload
         class="upload"
         ref="upload"
-        action="http://localhost:8888/upload"
+        action="http://localhost:8888/register/upload"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
@@ -43,7 +55,32 @@ export default {
   data() {
     return {
       options: [],
+      day: [
+        {
+          value: '1',
+          label: 'Monday'
+        }, {
+          value: '2',
+          label: 'Tuesday'
+        }, {
+          value: '3',
+          label: 'Wednesday'
+        }, {
+          value: '4',
+          label: 'Thursday'
+        }, {
+          value: '5',
+          label: 'Friday'
+        }, {
+          value: '6',
+          label: 'Saturday'
+        }, {
+          value: '7',
+          label: 'Sunday'
+        }
+      ],
       course: '',
+      availableDay: '',
       fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
     };
   },
@@ -91,7 +128,14 @@ export default {
       //     this.deleteHint(false)
       //   }
       // })
-    }
+    },
+    submitDay() {
+      console.log('您选择了', this.availableDay)
+      this.$axios.get("http://localhost:8888/register/selectDay", {
+        params: {day: this.availableDay}
+      }).then((res)=>{
+        console.log(res.data)
+      })}
   }
 
 }
