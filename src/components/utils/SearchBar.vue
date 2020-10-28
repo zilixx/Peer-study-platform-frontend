@@ -1,4 +1,3 @@
-<!-- Search bar component -->
 <template>
   <div>
     <input
@@ -59,4 +58,5 @@ export default {
   background-color: white;
   color: #4caf50;
 }
+
 </style>
