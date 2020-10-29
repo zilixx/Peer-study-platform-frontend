@@ -1,61 +1,81 @@
 <template>
-    <div>
-        <h3>Select Courses</h3>
-        <el-select v-model="course" placeholder="please choose" id="selection" class="selection"
-                   action="http://localhost:8888/register"
-                   @change="submitCourse()">
-            <el-option
-                v-for="item in options"
-                :key="item.name"
-                :value="item.courseId"
-                :label="item.name"
-            >
-            </el-option>
-        </el-select>
+    <div id="register-page">
+        <el-row class="heading-text">
+            <h3>Select a course</h3>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col :span="8">
+                <el-select v-model="course" placeholder="please choose"
+                           action="http://localhost:8888/register"
+                           @change="submitCourse()">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.name"
+                        :value="item.courseId"
+                        :label="item.name"
+                    >
+                    </el-option>
+                </el-select>
+            </el-col>
+        </el-row>
+        <el-row class="heading-text">
+            <h3>Select your available time</h3>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col :span="8">
+            <el-select v-model="availableDay" placeholder="please choose"
+                       @change="submitDay()">
+                <el-option
+                    v-for="item in day"
+                    :key="item.value"
+                    :value="item.label"
+                >
+                </el-option>
+            </el-select>
+            </el-col>
+        </el-row>
 
-        <h3>Select Available Time</h3>
-        <el-select v-model="availableDay" placeholder="please choose" id="selection" class="selection"
-                   @change="submitDay()">
-            <el-option
-                v-for="item in day"
-                :key="item.value"
-                :value="item.label"
-            >
-            </el-option>
-        </el-select>
+        <el-row class="heading-text">
+            <h3>Upload CV</h3>
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col :span="8">
+                <el-upload
+                    class="upload"
+                    ref="upload"
+                    action="http://localhost:8888/register/upload"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :before-remove="beforeRemove"
+                    :limit="1"
+                    :file-list="fileList"
+                    :auto-upload="false">
+                    <el-button slot="trigger" size="small" type="primary">Select a file<i class="el-icon-upload el-icon--right"></i></el-button>
 
-        <h3>Upload CV</h3>
-        <el-upload
-            class="upload"
-            ref="upload"
-            action="http://localhost:8888/register/upload"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            :limit="1"
-            :file-list="fileList"
-            :auto-upload="false">
-            <el-button slot="trigger" size="small" type="primary">Select a file</el-button>
+                    <div slot="tip" class="el-upload__tip">No larger than 10MB</div>
+                </el-upload>
+            </el-col>
 
-            <div slot="tip" class="el-upload__tip">No larger than 10MB</div>
-        </el-upload>
-        <br>
-        <el-button style="margin-left: 10px;" type="success" @click="submitUpload" id="confirm-register">Confirm<i
-            class="el-icon-upload el-icon--right"></i></el-button>
-        <!--    <uploading></uploading>-->
+        </el-row>
+
+        <el-row type="flex" justify="center" id="confirm-button">
+            <el-col :span="8">
+                <el-button style="width: 35%" type="success" @click="submitUpload" >
+                    Confirm
+                </el-button>
+            </el-col>
+        </el-row>
 
     </div>
 
 </template>
 
 <script>
-// import uploading from "../utils/Upload"
-
 export default {
     name: "Register",
-    // components: {
-    //   uploading
-    // },
+
+    // TODO: fix CSS
+
     data() {
         return {
             options: [],
@@ -138,19 +158,30 @@ export default {
 }
 </script>
 
-<style>
-.selection {
-    width: 400px;
-    margin: 20px auto;
+<style scoped>
+div#register-page {
+    width: 100%;
+    text-align: center;
+}
+.el-row {
+    text-align: center;
+    width: 100%;
 }
 
-.upload {
-    width: 400px;
-    margin: 20px auto;
+.el-row.heading-text{
+    margin-top: 15px;
 }
 
-#confirm-register{
-    width: 400px;
+.el-col{
+    width: 100%;
+}
+
+.el-select{
+    width: 35%;
+}
+
+#confirm-button{
+    margin-top: 40px;
 }
 
 </style>
