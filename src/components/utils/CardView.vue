@@ -3,18 +3,26 @@
     <div id="jumbo">
       <h3>{{ course.name }}</h3>
     </div>
-    <div id="caption">
-      <p id="course-code">{{ course.courseCode }}</p>
-      <p id="course-description">{{ course.description }}</p>
-      <p id="detail">
-        <el-link
-          type="primary"
-          icon="el-icon-search"
-          @click="seeDetail(course.courseCode)"
-          >See detail
-        </el-link>
-      </p>
-    </div>
+    <el-tooltip
+      class="item"
+      effect="light"
+      placement="bottom-end"
+    >
+    <p style="color: #3f87a6;" slot="content">Course code: {{ course.courseCode }}</p>
+    <p style="color: #3f87a6;" slot="content">Description: {{ course.description }}</p>
+      <div id="caption">
+        <p id="course-code">Course code: {{ course.courseCode }}</p>
+        <p id="course-description">Description: {{ course.description }}</p>
+        <p id="detail">
+          <el-link
+            type="primary"
+            icon="el-icon-search"
+            @click="seeDetail(course.courseCode)"
+            >See detail
+          </el-link>
+        </p>
+      </div>
+    </el-tooltip>
   </el-card>
 </template>
 
@@ -89,5 +97,12 @@ p#course-description,
 p#detail {
   margin: 2px;
   word-wrap: break-word;
+}
+
+p#course-description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 </style>
