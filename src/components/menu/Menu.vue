@@ -32,7 +32,7 @@
                     </el-menu-item>
                     <el-menu-item index="/register">
                         <i class="el-icon-s-promotion"></i>
-                        <span slot="title">Resigter as Tutor</span>
+                        <span slot="title">Register as Tutor</span>
                     </el-menu-item>
                 </el-submenu>
             </el-menu>

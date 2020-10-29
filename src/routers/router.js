@@ -5,7 +5,7 @@ import Home from '../components/content/Home.vue'
 import MyCourse from '../components/content/MyCourse.vue'
 import AllCourse from '../components/content/AllCourse.vue'
 import ViewBooking from '../components/content/ViewBooking.vue'
-import Resigter from '../components/content/Resigter.vue'
+import Register from '../components/content/Register.vue'
 import CourseDetail from '../components/content/CourseDetail.vue'
 import MyCourseTutorDetail from '../components/utils/MyCourseTutorDetail.vue'
 import MyCourseStudentDetail from '../components/utils/MyCourseStudentDetail.vue'
@@ -34,7 +34,7 @@ export default new VueRouter({
         },
         {
             path: '/register',
-            component: Resigter
+            component: Register
         },
         {
             path: '/course/:courseCode',
