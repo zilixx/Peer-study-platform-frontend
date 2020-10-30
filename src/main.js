@@ -46,7 +46,9 @@ router.beforeEach((to,from,next) => {
     else{
         if (isLogin != null) {
             let sid = sessionStorage.getItem("sid");
+            sid = sid.slice(0,-1);
             let username = sessionStorage.getItem("username");
+            username = username.slice(0,-1);
             store.dispatch("updateUserInfo",{"sid":sid, "username":username});
             next();
         }else {
