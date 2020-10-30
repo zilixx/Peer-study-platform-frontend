@@ -1,7 +1,7 @@
 <template>
     <el-row type="flex" justify="space-between">
         <el-col :span="5">
-            <div id="welcome"><i class="el-icon-user" id="usericon"></i>{{user.name}}</div>
+            <div id="welcome"><i class="el-icon-user" id="usericon"></i>{{this.$store.getters.getUser.username}}</div>
         </el-col>
         <el-col :span="5">
             <img src="../../assets/usyd-logo.png" id="logo"/>
@@ -19,19 +19,23 @@ export default {
     methods: {
         // TODO: untested API call
         userLogout: function (userName) {
-            this.$axios
-                .get("/api/logout", {
-                    params: {
-                        userName: userName,
-                    },
-                })
-                .then((response) => {
-                    if (response.logoutStat) {
-                        console.log(userName + " has logout.");
-                    } else {
-                        console.log(userName + " logut failed !");
-                    }
-                });
+            console.log(userName);
+            window.location.href = '/logout';
+            // this.$axios
+            //     .get("/api/logout", {
+            //         params: {
+            //             userName: userName,
+            //         },
+            //     })
+            //     .then((response) => {
+            //         console.log(response)
+            //         if (response.data.logoutStat == true) {
+            //             console.log(userName + " has logout.");
+            //         } else {
+            //             console.log(userName + " logout failed !");
+            //             window.location.href = '/main';
+            //         }
+            //     });
         },
     },
 };

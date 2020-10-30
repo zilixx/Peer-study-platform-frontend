@@ -10,7 +10,7 @@ import './plugins/element.js'
 import './theme/index.css'
 
 //Import Store
-import store from './store/index.js'
+import store from './utils/store.js'
 
 Vue.prototype.$axios = api;
 
@@ -45,6 +45,9 @@ router.beforeEach((to,from,next) => {
     }
     else{
         if (isLogin != null) {
+            let sid = sessionStorage.getItem("sid");
+            let username = sessionStorage.getItem("username");
+            store.dispatch("updateUserInfo",{"sid":sid, "username":username});
             next();
         }else {
             window.location.href = 'http://localhost:8888';
