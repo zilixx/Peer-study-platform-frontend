@@ -95,7 +95,7 @@ export default {
                     let deletedItem = this.resList.splice(
                         this.resList.findIndex(item => item.matchId === itemId), 1)
                     console.log(deletedItem)
-                    this.deleteHint(true) // TODO: possible async ops here
+                    this.deleteHint(true)
                 } else {
                     this.deleteHint(false)
                 }

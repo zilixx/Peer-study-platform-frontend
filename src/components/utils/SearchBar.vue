@@ -1,70 +1,62 @@
-<!-- Search bar component -->
-<template xmlns:size="http://www.w3.org/1999/xhtml">
+<template>
   <div>
-    <div style="float: left">
-        <input :value="currentValue" @input="inputload" placeholder="Please enter class number, eg: COMP5619" class="input" size="165.5">
-    </div>
-    <div style="float: right">
-        <button class="button button1" @click="submit">Search</button>
-    </div>
+    <input
+      v-model.lazy="currentValue"
+      placeholder="Please search a course number or a course name, eg: COMP5619 or Object Oriented Application Framework"
+      class="input"
+    />
+    <input
+      type="button"
+      class="button button1"
+      value="Search"
+      @click="inputLoad"
+    />
   </div>
 </template>
 <script>
-    export default {
-        name: 'SearchBar',
-        data() {
-            return {
-                currentValue: this.value,
-            };
-        },
-        props: {
-            value: {
-                type: [String, Number],
-                default: ''
-            },
-        },
-        watch: {
-            value(val) {
-                this.setCurrentValue(val);
-            }
-        },
-        methods: {
-            setCurrentValue(value) {
-                console.log(value)
-                if (value === this.currentValue) return;
-                this.currentValue = value;
-            },
-            inputload(event){
-                let value = event.target.value;
-                this.$emit('input', value)
-            }
-        }
-    }
+export default {
+  name: "SearchBar",
+  data() {
+    return {
+      currentValue: "",
+    };
+  },
+  methods: {
+    inputLoad() {
+      this.$emit("input", this.currentValue);
+    },
+  },
+};
 </script>
 
 <style>
-    .input{
-        padding: 6px 10px;
-    }
-    .button {
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      padding: 8px 20px;
-      /*margin: 8px 0;*/
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+.input {
+  display: inline-block;
+  padding: 6px 10px;
+  width: 795px;
+  margin-left: 5px;
+}
+.button {
+  width: 100px;
+  height: 32px;
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 20px;
+  /*margin: 8px 0;*/
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-    .button1{
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-    }
+.button1 {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
 
-    .button1:hover {
-      background-color: white;
-      color: #4CAF50;
-    }
+.button1:hover {
+  background-color: white;
+  color: #4caf50;
+}
+
 </style>

@@ -5,17 +5,20 @@ import Home from '../components/content/Home.vue'
 import MyCourse from '../components/content/MyCourse.vue'
 import AllCourse from '../components/content/AllCourse.vue'
 import ViewBooking from '../components/content/ViewBooking.vue'
-import Resigter from '../components/content/Resigter.vue'
+import Register from '../components/content/Register.vue'
+import CourseDetail from '../components/content/CourseDetail.vue'
+import MyCourseTutorDetail from '../components/utils/MyCourseTutorDetail.vue'
+import MyCourseStudentDetail from '../components/utils/MyCourseStudentDetail.vue'
+import NotFound from '../components/content/NotFound.vue'
 
 Vue.use(VueRouter)
 
 export default new VueRouter({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/',
             component: Home,
-            props: {username: "user 1"}
+            props: { username: "user 1" }
         },
         {
             path: '/allcourse',
@@ -23,15 +26,38 @@ export default new VueRouter({
         },
         {
             path: '/mycourse',
-            component: MyCourse
+            component: MyCourse,
         },
         {
             path: '/viewbooking',
-            component: ViewBooking    
+            component: ViewBooking
         },
         {
             path: '/register',
-            component: Resigter
+            component: Register
+        },
+        {
+            path: '/course/:courseCode',
+            name: 'CourseDetail',
+            component: CourseDetail,
+            props: true
+        },
+        {
+            path: '/course/:courseCode/tutors',
+            name: 'MyCourseTutorDetail',
+            component: MyCourseTutorDetail,
+            props: true
+        },
+        {
+            path: '/course/:courseCode/students',
+            name: 'MyCourseStudentDetail',
+            component: MyCourseStudentDetail,
+            props: true
+        },
+        {
+            path: '*',
+            name: 'NotFound',
+            component: NotFound
         }
     ]
 });
