@@ -67,7 +67,7 @@ export default {
     getData() {
       this.$axios.get("http://localhost:8888/course/student/booked", {
         params: {
-          sid: 1002
+          sid: this.$store.getters.getUser.sid
         }
       }).then((res) => {
         this.courses = res.data
@@ -79,7 +79,7 @@ export default {
       })
       this.$axios.get("http://localhost:8888/course/tutor/booked", {
         params: {
-          tutorId: 1002
+          tutorId: this.$store.getters.getUser.sid
         }
       }).then((res) => {
         this.tutorCourses = res.data

@@ -95,7 +95,7 @@ export default {
       this.$axios
         .get(`http://localhost:8888/booking/add/${this.courseCode}`, {
           params: {
-            studentId: 1004,
+            studentId: this.$store.getters.getUser.sid,
             tutorId: row.sid,
           },
         })

@@ -32,7 +32,7 @@ export default {
     getData() {
       this.$axios.get(`http://localhost:8888/course/booked/${this.courseCode}`, {
         params: {
-          sid: 1002
+          sid: this.$store.getters.getUser.sid
         }
       }).then((res) => {
         this.tutorList = res.data

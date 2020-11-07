@@ -66,7 +66,7 @@ export default {
          */
         updateBookingList() {
             this.$axios.get("http://localhost:8888/booking/all", {
-                params: {sid: 1002}
+                params: {sid: this.$store.getters.getUser.sid}
             }).then((res) => {
                 this.resList = res.data
                 this.$message({
@@ -91,7 +91,7 @@ export default {
                 console.log(res.data)
                 let deleteStat = JSON.parse(res.data.deleteStat);
                 if (deleteStat) {
-                    // 抄来的管用代码，link: https://segmentfault.com/q/1010000011726114
+                    // reference，link: https://segmentfault.com/q/1010000011726114
                     let deletedItem = this.resList.splice(
                         this.resList.findIndex(item => item.matchId === itemId), 1)
                     console.log(deletedItem)
