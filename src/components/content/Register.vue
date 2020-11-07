@@ -74,8 +74,6 @@
 export default {
     name: "Register",
 
-    // TODO: fix CSS
-
     data() {
         return {
             options: [],

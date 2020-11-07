@@ -20,11 +20,10 @@ export default {
         userLogout: function (userName) {
             console.log(userName);
             window.location.href = '/logout';
-        },
+        }
 
-    },
-  },
-};
+    }
+  }
 </script>
 
 <style scoped>
