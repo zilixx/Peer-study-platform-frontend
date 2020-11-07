@@ -1,6 +1,12 @@
 <template>
     <div id="view-booking">
-        <h1 v-if="isEmpty">No data from the backend server, please try again later.</h1>
+        <el-row v-if="isEmpty">
+            <h1>You have no bookings, checkout
+                <el-link type="primary" @click="() => this.$router.push(`/allcourse`)">
+                    All courses
+                </el-link>
+                for all available courses.</h1>
+        </el-row>
         <el-row id="row-head" v-if="isFull">
             <el-col :span="4">
                 <p>Match Id</p>
@@ -129,6 +135,11 @@ export default {
 <style scoped>
 div#view-booking {
     height: 100%;
+}
+
+.el-link{
+    font-size: 1em;
+    margin-bottom: 5px;
 }
 
 .el-row {

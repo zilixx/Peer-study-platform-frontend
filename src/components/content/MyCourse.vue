@@ -14,12 +14,11 @@
         </div>
         <div v-else>
           <h2>
-            You haven't booked a course. Try to book one in All Courses tab
+            You have no bookings. Try to book one in All Courses tab
           </h2>
-          <el-link type="primary" @click="() => this.$router.push(`/allcourse`)"
-          >All courses
-          </el-link
-          >
+          <el-link type="primary" @click="() => this.$router.push(`/allcourse`)">
+              All courses
+          </el-link>
         </div>
       </el-tab-pane>
       <el-tab-pane label="As a tutor" name="tutor">
