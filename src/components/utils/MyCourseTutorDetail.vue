@@ -7,12 +7,14 @@
       style="width: 100%"
       empty-text="No content available!"
     >
-      <el-table-column prop="tutorSID" label="TutorSID">
+      <el-table-column prop="tutorSid" label="TutorSID">
       </el-table-column>
-      <el-table-column prop="name" label="Name"> </el-table-column>
-      <el-table-column prop="courseName" label="CourseName">
+      <el-table-column prop="first_name" label="firstname"> </el-table-column>
+      <el-table-column prop="last_name" label="lastname">
       </el-table-column>
-      <el-table-column prop="date" label="Available time"> </el-table-column>
+      <el-table-column prop="name" label="course name">
+      </el-table-column>
+      <el-table-column prop="matchTime" label="match time"> </el-table-column>
     </el-table>
   </div>
 </template>
@@ -22,26 +24,32 @@ import BackHeader from "../utils/BackHeader"
 
 export default {
   name: "MyCourseTutorDetail",
-  methods: {},
+  props: ["courseCode"],
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      this.$axios.get(`http://localhost:8888/course/booked/${this.courseCode}`, {
+        params: {
+          sid: 1002
+        }
+      }).then((res) => {
+        this.tutorList = res.data
+      }).catch((err) => {
+        this.$message({
+          message: `${err}`,
+          type: "error"
+        })
+      })
+    }
+  },
   data() {
     // Add tutor info list here
     return {
       content: "Your tutors",
       from: "/mycourse",
-      tutorList: [
-        {
-          tutorSID: "490345232",
-          name: "Nio Wang",
-          courseName: "COMP5619",
-          date: "Monday",
-        },
-        {
-          tutorSID: "490345232",
-          name: "Tom Jerry",
-          courseName: "COMP5619",
-          date: "Friday",
-        },
-      ],
+      tutorList: [],
     };
   },
   components: {
