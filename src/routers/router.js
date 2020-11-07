@@ -18,7 +18,6 @@ export default new VueRouter({
     routes: [{
             path: '/',
             component: Home,
-            props: { username: "user 1" }
         },
         {
             path: '/allcourse',
