@@ -4,12 +4,12 @@
       <el-tab-pane label="As a student" name="student">
         <div v-if="courses.length">
           <el-col
-            :span="7"
-            :offset="1"
-            v-for="course in courses"
-            :key="course.courseId"
+              :span="7"
+              :offset="1"
+              v-for="course in courses"
+              :key="course.courseId"
           >
-            <CardView :course="course" :identity="activeName" />
+            <CardView :course="course" :identity="activeName"/>
           </el-col>
         </div>
         <div v-else>
@@ -17,25 +17,27 @@
             You haven't booked a course. Try to book one in All Courses tab
           </h2>
           <el-link type="primary" @click="() => this.$router.push(`/allcourse`)"
-            >All courses</el-link
+          >All courses
+          </el-link
           >
         </div>
       </el-tab-pane>
       <el-tab-pane label="As a tutor" name="tutor">
         <div v-if="tutorCourses.length">
           <el-col
-            :span="7"
-            :offset="1"
-            v-for="course in tutorCourses"
-            :key="course.courseId"
+              :span="7"
+              :offset="1"
+              v-for="course in tutorCourses"
+              :key="course.courseId"
           >
-            <CardView :course="course" :identity="activeName" />
+            <CardView :course="course" :identity="activeName"/>
           </el-col>
         </div>
         <div v-else>
           <h2>You haven't registered as a tutor for any courses now.</h2>
           <el-link type="primary" @click="() => this.$router.push(`/register`)"
-            >Go register as a tutor</el-link
+          >Go register as a tutor
+          </el-link
           >
         </div>
       </el-tab-pane>
@@ -62,9 +64,32 @@ export default {
     this.getData();
   },
   methods: {
-    // TODO: fetch data
     getData() {
-    },
+      this.$axios.get("http://localhost:8888/course/student/booked", {
+        params: {
+          sid: 1002
+        }
+      }).then((res) => {
+        this.courses = res.data
+      }).catch((err) => {
+        this.$message({
+          message: `${err}`,
+          type: "error"
+        })
+      })
+      this.$axios.get("http://localhost:8888/course/tutor/booked", {
+        params: {
+          tutorId: 1002
+        }
+      }).then((res) => {
+        this.tutorCourses = res.data
+      }).catch((err) => {
+        this.$message({
+          message: `${err}`,
+          type: "error"
+        })
+      })
+    }
   },
 };
 </script>
@@ -73,6 +98,7 @@ export default {
 #container {
   padding: 20px;
 }
+
 .el-col {
   margin-left: 30px;
   margin-bottom: 30px;

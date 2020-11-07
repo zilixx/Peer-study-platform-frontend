@@ -1,18 +1,19 @@
 <template>
   <div id="container">
-    <BackHeader :content="content" :from="from" />
+    <BackHeader :content="content" :from="from"/>
     <el-table
-      :data="studentList"
-      stripe
-      style="width: 100%"
-      empty-text="No content available!"
+        :data="studentList"
+        stripe
+        style="width: 100%"
+        empty-text="No content available!"
     >
-      <el-table-column prop="SID" label="Student ID">
+      <el-table-column prop="sid" label="Student ID">
       </el-table-column>
-      <el-table-column prop="name" label="Student Name"> </el-table-column>
-      <el-table-column prop="courseName" label="Course Name">
+      <el-table-column prop="first_name" label="first name"></el-table-column>
+      <el-table-column prop="last_name" label="last name">
       </el-table-column>
-      <el-table-column prop="date" label="Available time"> </el-table-column>
+      <el-table-column prop="name" label="course name"></el-table-column>
+      <el-table-column prop="matchTime" label="match time"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -21,23 +22,41 @@
 import BackHeader from '../utils/BackHeader'
 
 export default {
-    name: "MyCourseStudentDetail",
-    data() {
-        return {
-            content: "Students you are responsible for",
-            from: "/mycourse",
-            studentList: []
-        }
-    },
-    components: {
-        BackHeader
-    },
-    method() {
-
-    },
-    mounted() {
-
-    },
+  name: "MyCourseStudentDetail",
+  props: ['courseCode'],
+  data() {
+    return {
+      content: "Students you are responsible for",
+      from: "/mycourse",
+      studentList: []
+    }
+  },
+  components: {
+    BackHeader
+  },
+  mounted() {
+    this.getData()
+    console.log(this.studentList)
+  },
+  methods: {
+    getData() {
+      this.$axios
+          .get(`http://localhost:8888/booking/tutor/${this.courseCode}`, {
+            params: {
+              tutorId: 1002
+            }
+          })
+      .then((res) => {
+        console.log(res.data);
+        this.studentList = res.data;
+      }).catch((err) => {
+        this.$message({
+          message: `${err}`,
+          type: "error"
+        })
+      })
+    }
+  },
 }
 </script>
 
