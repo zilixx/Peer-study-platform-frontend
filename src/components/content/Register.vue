@@ -5,11 +5,10 @@
         </el-row>
         <el-row type="flex" justify="center">
             <el-col :span="8">
-                <el-select v-model="course" placeholder="please choose"
-                           action="http://localhost:8888/register"
-                           @change="submitCourse()">
+                <el-select v-model="courseValue" placeholder="Select your course"
+                           @change="submitCourse">
                     <el-option
-                        v-for="item in options"
+                        v-for="item in courseOptions"
                         :key="item.name"
                         :value="item.courseId"
                         :label="item.name"
@@ -23,15 +22,15 @@
         </el-row>
         <el-row type="flex" justify="center">
             <el-col :span="8">
-            <el-select v-model="availableDay" placeholder="please choose"
-                       @change="submitDay()">
-                <el-option
-                    v-for="item in day"
-                    :key="item.value"
-                    :value="item.label"
-                >
-                </el-option>
-            </el-select>
+                <el-select v-model="timeValue" placeholder="Select your time"
+                           @change="submitDay">
+                    <el-option
+                        v-for="item in day"
+                        :key="item.id"
+                        :value="item.label"
+                    >
+                    </el-option>
+                </el-select>
             </el-col>
         </el-row>
 
@@ -44,13 +43,14 @@
                     class="upload"
                     ref="upload"
                     action="http://localhost:8888/register/upload"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
+                    :data="getUploadParams"
                     :before-remove="beforeRemove"
+                    :on-success="uploadSuccess"
                     :limit="1"
                     :file-list="fileList"
                     :auto-upload="false">
-                    <el-button slot="trigger" size="small" type="primary">Select a file<i class="el-icon-upload el-icon--right"></i></el-button>
+                    <el-button slot="trigger" size="small" type="primary">Select a file<i
+                        class="el-icon-upload el-icon--right"></i></el-button>
 
                     <div slot="tip" class="el-upload__tip">No larger than 10MB</div>
                 </el-upload>
@@ -60,7 +60,7 @@
 
         <el-row type="flex" justify="center" id="confirm-button">
             <el-col :span="8">
-                <el-button style="width: 35%" type="success" @click="submitUpload" >
+                <el-button style="width: 35%" type="success" @click="submitUpload">
                     Confirm
                 </el-button>
             </el-col>
@@ -76,80 +76,94 @@ export default {
 
     data() {
         return {
-            options: [],
+            courseOptions: [],
             day: [
                 {
-                    value: '1',
+                    id: '1',
                     label: 'Monday'
                 }, {
-                    value: '2',
+                    id: '2',
                     label: 'Tuesday'
                 }, {
-                    value: '3',
+                    id: '3',
                     label: 'Wednesday'
                 }, {
-                    value: '4',
+                    id: '4',
                     label: 'Thursday'
                 }, {
-                    value: '5',
+                    id: '5',
                     label: 'Friday'
                 }, {
-                    value: '6',
+                    id: '6',
                     label: 'Saturday'
                 }, {
-                    value: '7',
+                    id: '7',
                     label: 'Sunday'
                 }
             ],
-            course: '',
-            availableDay: '',
+
+            courseId: "",
+            time: "",
+
             fileList: [],
+            courseValue: [],
+            timeValue: []
         };
     },
     mounted() {
-        this.$axios.get("http://localhost:8888/register/all", {
-            params: {course: this.course}
-        })
+        this.$axios.get("http://localhost:8888/register/all")
             .then((res) => {
-                this.options = res.data
+                this.courseOptions = res.data
                 this.$message({
                     message: "Data updated.",
                     type: "info",
                     duration: 1000
                 })
-            }).catch((err) => {
-            console.log(err)
-        })
+            })
     },
+
+    computed: {
+        getUploadParams: function () {
+            return {
+                sid: this.$store.getters.getUser.sid,
+                courseId: this.courseId,
+                time: this.time
+            };
+        }
+    },
+
     methods: {
         submitUpload() {
             this.$refs.upload.submit();
         },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        },
         beforeRemove(file) {
             return this.$confirm(`Are you sure to delete ${file.name}？`);
         },
-        submitCourse() {
-            console.log('You chose', this.course)
-            this.$axios.get("http://localhost:8888/register/select", {
-                params: {courseId: this.course}
-            }).then((res) => {
-                console.log(res.data)
-            })
+        submitCourse(optionVal) {
+            console.log(optionVal)
+            this.courseId = optionVal
 
         },
-        submitDay() {
-            console.log('You chose', this.availableDay)
-            this.$axios.get("http://localhost:8888/register/selectDay", {
-                params: {day: this.availableDay}
-            }).then((res) => {
-                console.log(res.data)
-            })
+        submitDay(optionVal) {
+            console.log(optionVal)
+            this.time = optionVal
+        },
+        uploadSuccess(response) {
+            console.log(response)
+
+            if (response.fileStat & response.insertStat) {
+                this.$message({
+                    message: "Upload successful.",
+                    type: "success",
+                    duration: 1000
+                })
+            } else {
+                this.$message({
+                    message: "Upload failed",
+                    type: "error",
+                    duration: 1000
+                })
+            }
         }
     }
 
@@ -161,24 +175,25 @@ div#register-page {
     width: 100%;
     text-align: center;
 }
+
 .el-row {
     text-align: center;
     width: 100%;
 }
 
-.el-row.heading-text{
+.el-row.heading-text {
     margin-top: 15px;
 }
 
-.el-col{
+.el-col {
     width: 100%;
 }
 
-.el-select{
+.el-select {
     width: 35%;
 }
 
-#confirm-button{
+#confirm-button {
     margin-top: 40px;
 }
 
