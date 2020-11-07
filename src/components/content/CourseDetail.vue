@@ -71,7 +71,7 @@ export default {
       this.$axios
         .get(`http://localhost:8888/course/booked/${courseCode}`, {
           params: {
-            sid: 1004,
+            sid: this.$store.getters.getUser.sid,
           },
         })
         .then((response) => {
@@ -86,46 +86,56 @@ export default {
                   .classList.add("el-button--success", "is-disabled");
               }
             }
+            if (el.sid == this.$store.getters.getUser.sid) {
+              buttonList
+                  .item(index)
+                  .classList.add("is-disabled");
+              buttonList
+                  .item(index)
+                  .innerHTML = 'You'
+            }
           });
         });
     },
 
     handleBooking(row, event) {
       const e = event.currentTarget;
-      this.$axios
-        .get(`http://localhost:8888/booking/add/${this.courseCode}`, {
-          params: {
-            studentId: this.$store.getters.getUser.sid,
-            tutorId: row.sid,
-          },
-        })
-        .then((res) => {
-          if (res.data.addStat) {
-            e.children[1].innerHTML = "Booked";
-            e.classList.add("el-button--success", "is-disabled");
-            // const e = event.target;
-            // if (e.tagName === "BUTTON") {
-            //   e.children[1].innerHTML = "Booked";
-            //   e.classList.add("el-button--success", "is-disabled");
-            // } else if (e.tagName === "I") {
-            //     e.nextSibling.innerHTML = "Booked";
-            //     e.parentNode.classList.add("el-button--success", "is-disabled");
-            // } else if (e.tagName === "SPAN") {
-            //     e.innerHTML = "Booked";
-            //     e.parentNode.classList.add("el-button--success", "is-disabled");
-            // }
-            this.$message({
-              type: "success",
-              message: `You have successfully booked ${row.first_name}'s course. You can cancel this booking in My Profile -> View Booking`,
-            });
-          } else {
-            this.$message({
-              type: "error",
-              message: "Failed request!",
-            });
-          }
-        })
-        .catch((err) => console.log(err));
+      if (!e.classList.contains('is-disabled')) {
+        this.$axios
+            .get(`http://localhost:8888/booking/add/${this.courseCode}`, {
+              params: {
+                studentId: this.$store.getters.getUser.sid,
+                tutorId: row.sid,
+              },
+            })
+            .then((res) => {
+              if (res.data.addStat) {
+                e.children[1].innerHTML = "Booked";
+                e.classList.add("el-button--success", "is-disabled");
+                // const e = event.target;
+                // if (e.tagName === "BUTTON") {
+                //   e.children[1].innerHTML = "Booked";
+                //   e.classList.add("el-button--success", "is-disabled");
+                // } else if (e.tagName === "I") {
+                //     e.nextSibling.innerHTML = "Booked";
+                //     e.parentNode.classList.add("el-button--success", "is-disabled");
+                // } else if (e.tagName === "SPAN") {
+                //     e.innerHTML = "Booked";
+                //     e.parentNode.classList.add("el-button--success", "is-disabled");
+                // }
+                this.$message({
+                  type: "success",
+                  message: `You have successfully booked ${row.first_name}'s course. You can cancel this booking in My Profile -> View Booking`,
+                });
+              } else {
+                this.$message({
+                  type: "error",
+                  message: "Failed request!",
+                });
+              }
+            })
+            .catch((err) => console.log(err));
+      }
     },
   },
   mounted() {
