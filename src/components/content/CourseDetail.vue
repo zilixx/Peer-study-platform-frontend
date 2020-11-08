@@ -86,7 +86,7 @@ export default {
                   .classList.add("el-button--success", "is-disabled");
               }
             }
-            if (el.sid == this.$store.getters.getUser.sid) {
+            if (el.sid === this.$store.getters.getUser.sid) {
               buttonList
                   .item(index)
                   .classList.add("is-disabled");

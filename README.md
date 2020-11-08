@@ -6,7 +6,7 @@ Project wiki can be found [here](https://github.sydney.edu.au/ELEC5619-2020/Peer
 **This is the frontend project repository, if you are looking for the backend project, checkout another repository inside this organization.**
 
 ## Setup
-We recommend to use JetBrains WebStorm as the development and testing IDE.
+We recommend to use JetBrains WebStorm.
 
 If you want to use VSCode instead, there are a few extensions we recommend for Vue.js development in the last section.
 
@@ -24,7 +24,7 @@ https://nodejs.org/zh-cn/download/
     ```shell
     npm install -g @vue/cli
     ```
-### Install dependencies
+### Install JS dependencies
 In your project directory
 ```shell
 npm install
@@ -35,24 +35,17 @@ npm install
 npm run serve
 ```
 
-### Testing environment
-The testing backend can be found in https://github.sydney.edu.au/ELEC5619-2020/DummyFlask.
-
-Follow the README guide to run the mini backend.
-
-For branch `chli4002`, the response data for testing can be found at `./src/assets/sample_ViewBooking.json`.
-
 ## Run
 **Make sure you start the backend before the frontend!**
 
-Follow the guide of backend repository to setup the Spring backend server. [Check this link](https://github.sydney.edu.au/ELEC5619-2020/Peer_Study_Helping_Backend/blob/master/README.md)
+Follow the guide of backend repository to set up the Spring backend server. [Check this link](https://github.sydney.edu.au/ELEC5619-2020/Peer_Study_Helping_Backend/blob/master/README.md)
 
 For frontend application, simply use the command below to run in dev mode.
 ```bash
 npm run serve
 ```
 
-## Reference documents
+## Reference
 - Vue.js: https://cn.vuejs.org/index.html
 - Vuex: https://vuex.vuejs.org/zh/guide/
 - Vue CLI: https://cli.vuejs.org/guide/

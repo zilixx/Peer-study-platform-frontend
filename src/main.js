@@ -29,13 +29,13 @@ router.beforeEach((to,from,next) => {
     }
     let isLogin = sessionStorage.getItem("isLogin");
 
-    if (to.path == '/logout'){
+    if (to.path === '/logout'){
         deleteAllCookies();
         sessionStorage.clear();
         isLogin = null;
         next('/login');
     }
-    else if (to.path == '/login'){
+    else if (to.path === '/login'){
         if(isLogin != null){
             next('/');
         }else{

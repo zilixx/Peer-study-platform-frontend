@@ -18,10 +18,9 @@ export default {
     props: ["user"],
     methods: {
         userLogout: function (userName) {
-            console.log(userName);
+            console.log(userName + "has logout.");
             window.location.href = '/logout';
         }
-
     }
   }
 </script>

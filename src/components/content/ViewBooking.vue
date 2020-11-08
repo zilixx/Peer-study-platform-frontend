@@ -94,13 +94,12 @@ export default {
             this.$axios.get("http://localhost:8888/booking/delete", {
                 params: {bookingId: itemId}
             }).then((res) => {
-                console.log(res.data)
                 let deleteStat = JSON.parse(res.data.deleteStat);
                 if (deleteStat) {
                     // reference，link: https://segmentfault.com/q/1010000011726114
                     let deletedItem = this.resList.splice(
                         this.resList.findIndex(item => item.matchId === itemId), 1)
-                    console.log(deletedItem)
+                    console.log(deletedItem + "deleted")
                     this.deleteHint(true)
                 } else {
                     this.deleteHint(false)

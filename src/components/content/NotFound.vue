@@ -1,7 +1,7 @@
 <template>
   <div>
     <BackHeader :content="content" :from="from" />
-    <div id="container">
+    <div id="container-404">
       <div id="content">
         <p>404</p>
         <h1>The page you are looking for is not found</h1>
@@ -33,7 +33,7 @@ export default {
   font-family: myfont;
   src: url("../../assets/myfont.ttf");
 }
-div#container {
+div#container-404 {
   height: 70%;
   display: flex;
   flex-wrap: wrap;

@@ -140,17 +140,12 @@ export default {
             return this.$confirm(`Are you sure to delete ${file.name}？`);
         },
         submitCourse(optionVal) {
-            console.log(optionVal)
             this.courseId = optionVal
-
         },
         submitDay(optionVal) {
-            console.log(optionVal)
             this.time = optionVal
         },
         uploadSuccess(response) {
-            console.log(response)
-
             if (response.fileStat & response.insertStat) {
                 this.$message({
                     message: "Upload successful.",
