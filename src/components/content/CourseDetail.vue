@@ -1,15 +1,15 @@
 <template>
   <div id="container">
     <!-- BackHeader component -->
-    <BackHeader :content="headerContent" :from="from" />
+    <BackHeader :content="headerContent" :from="from"/>
     <!-- Show tutor list for selected course -->
     <el-table
-      ref="tutorTable"
-      :data="tutorList"
-      stripe
-      style="width: 100%"
-      empty-text="No tutor available for this course!"
-      v-loading="loading"
+        ref="tutorTable"
+        :data="tutorList"
+        stripe
+        style="width: 100%"
+        empty-text="No tutor available for this course!"
+        v-loading="loading"
     >
       <el-table-column prop="sid" label="Student ID" width="250">
       </el-table-column>
@@ -22,13 +22,13 @@
       <el-table-column align="right">
         <template slot-scope="scope">
           <el-button
-            slot="reference"
-            size="mini"
-            type="primary"
-            icon="el-icon-star-on"
-            class="book-button"
-            v-on:click.once="handleBooking(scope.row, $event)"
-            >Booking
+              slot="reference"
+              size="mini"
+              type="primary"
+              icon="el-icon-star-on"
+              class="book-button"
+              v-on:click.once="handleBooking(scope.row, $event)"
+          >Booking
           </el-button>
         </template>
       </el-table-column>
@@ -46,7 +46,8 @@ export default {
     return {
       tutorList: [],
       loading: true,
-      headerContent: "Available tutors",
+      bookedList: "",
+      headerContent: "",
       from: "/allcourse",
     };
   },
@@ -54,48 +55,56 @@ export default {
     BackHeader,
   },
   methods: {
+    getHeaderContent() {
+      this.headerContent = `Available tutors for ${this.courseCode}`;
+    },
     getData(courseCode) {
       this.$axios
-        .get(`http://localhost:8888/course/${courseCode}`)
-        .then((res) => {
-          this.tutorList = res.data;
-        })
-        .then(() => (this.loading = false))
-        .catch((err) => {
-          console.log(err);
-          this.loading = false;
-        });
+          .get(`http://localhost:8888/course/${courseCode}`)
+          .then((res) => {
+            this.tutorList = res.data;
+          })
+          .then(() => (this.loading = false))
+          .catch((err) => {
+            console.log(err);
+            this.loading = false;
+          });
     },
 
     getBookedTutor(courseCode) {
       this.$axios
-        .get(`http://localhost:8888/course/booked/${courseCode}`, {
-          params: {
-            sid: this.$store.getters.getUser.sid,
-          },
-        })
-        .then((response) => {
-          let bookedList = response.data;
+          .get(`http://localhost:8888/course/booked/${courseCode}`, {
+            params: {
+              sid: this.$store.getters.getUser.sid,
+            },
+          })
+          .then((response) => {
+            this.bookedList = response.data;
+            const buttonList = document.getElementsByClassName("book-button");
 
-          const buttonList = document.getElementsByClassName("book-button");
-          this.tutorList.forEach((el, index) => {
-            for (let i = 0; i < bookedList.length; i++) {
-              if (el.sid === bookedList[i].tutorSid) {
-                buttonList
-                  .item(index)
-                  .classList.add("el-button--success", "is-disabled");
+            this.tutorList.forEach((el, index) => {
+              for (let i = 0; i < this.bookedList.length; i++) {
+                if (el.sid === this.bookedList[i].tutorSid) {
+                  buttonList
+                      .item(index)
+                      .classList.add("el-button--success", "is-disabled");
+                }
               }
-            }
-            if (el.sid === this.$store.getters.getUser.sid) {
-              buttonList
-                  .item(index)
-                  .classList.add("is-disabled");
-              buttonList
-                  .item(index)
-                  .innerHTML = 'You'
-            }
-          });
-        });
+            });
+
+            this.tutorList.forEach((el, index) => {
+              if (el.sid == this.$store.getters.getUser.sid) {
+                buttonList.item(index).classList.add("is-disabled");
+                buttonList.item(index).innerHTML = "You"
+              }
+            });
+          })
+          .catch(err => {
+            this.$message({
+              type: "error",
+              message: `${err}`
+            })
+          })
     },
 
     handleBooking(row, event) {
@@ -139,6 +148,7 @@ export default {
     },
   },
   mounted() {
+    this.getHeaderContent();
     this.getBookedTutor(this.courseCode);
   },
   beforeMount() {
