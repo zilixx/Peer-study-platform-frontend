@@ -1,9 +1,12 @@
 # Peer Study Helping Frontend
 This is the working repository for group project Peer Study Helping platform.
 
-Project wiki can be found [here](https://github.sydney.edu.au/ELEC5619-2020/Peer_Study_Helping_Frontend/wiki).
-
-**This is the frontend project repository, if you are looking for the backend project, checkout another repository inside this organization.**
+## Members:
+- [Chenghao Li](https://github.com/1lch2)
+- [Zidong Li](https://github.com/Lee970623)
+- Limou Zhou
+- Qihang Zhao
+- Shihanjian Wang
 
 ## Setup
 We recommend to use JetBrains WebStorm.
